@@ -7,13 +7,17 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-   [SerializeField]   private GameInput gameInput;
-    private float moveSpeed = 3f;
-    
+    [SerializeField]  private GameInput gameInput;
+    private float moveSpeed = 2f;
+    private bool isWalking;
     // Start is called before the first frame update
     void Start()
-    {
-       
+    { 
+        
+        if (gameInput == null)
+        {
+            Debug.LogError("GameInput is not set on PlayerController");
+        }
     }
 
     // Update is called once per frame
@@ -21,10 +25,17 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 inputVector = gameInput.GetMovementVector();
         Vector3 movDir = new Vector3(inputVector.x, 0, inputVector.y);
-        transform.position += movDir * moveSpeed * Time.deltaTime;
-        float rotateSpeed = 10f;
-        transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);
-        Debug.Log(inputVector);
+        Debug.Log("Mov Dir " + movDir);
+        transform.position += movDir * moveSpeed * Time.deltaTime;//For player movement
+        isWalking = movDir != Vector3.zero;    //For walking animation
+        float rotateSpeed = 4f;
+        transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);//For player rotation
+       
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
     }
    
 }

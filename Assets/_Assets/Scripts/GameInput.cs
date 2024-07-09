@@ -13,7 +13,9 @@ public class GameInput : MonoBehaviour
     public Vector2 GetMovementVector()
     {
         Vector2 inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
-        /*if (Input.GetKey(KeyCode.W))
+        
+        /*Vector2 inputVector =new Vector2(0f,0f);
+        if (Input.GetKey(KeyCode.W))
             inputVector.y = +1;
         if (Input.GetKey(KeyCode.S))
             inputVector.y = -1;
