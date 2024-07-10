@@ -24,11 +24,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector2 inputVector = gameInput.GetMovementVector();
-        Vector3 movDir = new Vector3(inputVector.x, 0, inputVector.y);
+        Vector3 movDir = new Vector3(-inputVector.x, 0, -inputVector.y);
         Debug.Log("Mov Dir " + movDir);
-        transform.position += movDir * moveSpeed * Time.deltaTime;//For player movement
+         transform.forward += movDir * moveSpeed * Time.deltaTime;///For player movement
         isWalking = movDir != Vector3.zero;    //For walking animation
-        float rotateSpeed = 4f;
+        float rotateSpeed = .1f;
         transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);//For player rotation
        
     }
