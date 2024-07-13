@@ -8,11 +8,12 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    bool isRotating = false;
     [SerializeField]  private GameInput gameInput; 
     private float moveSpeed = 5f;
     private bool isWalking;
-  public  float rotateSpeed = 100f;
+    private float rotateSpeed = 7f;
+    Vector3 lastInteraction;
+    [SerializeField] private LayerMask counterLayerMask;
     // Start is called before the first frame update
     void Start()
     { 
@@ -26,29 +27,60 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleMovement();
+        HandleInteractions();
+    }
 
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
+    private void HandleInteractions()
+    {
         Vector2 inputVector = gameInput.GetMovementVector();
         Vector3 movDir = new Vector3(-inputVector.x, 0, -inputVector.y);
+        if(movDir!=Vector3.zero)
+        {
+            lastInteraction = movDir;
+        }
+        float interactonDistance = 2f;
+       if(Physics.Raycast(transform.position, lastInteraction, out RaycastHit raycastHit,interactonDistance, counterLayerMask))
+        {
+            Debug.Log(raycastHit.transform);
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+                //Has counterLayerMask
+                clearCounter.Interact();
+        }
+        else
+        {
+            Debug.Log("Raycast : Nothing");
+        }
+    }
+    private void HandleMovement()
+    {
+        Vector2 inputVector = gameInput.GetMovementVector();
+        Vector3 movDir = new Vector3(-inputVector.x, 0, -inputVector.y);
+        isWalking = movDir != Vector3.zero;
         //     Debug.Log("Mov Dir " + movDir);
         float moveDistance = moveSpeed * Time.deltaTime;
         float PlayerRadius = 0.7f;
         float playerHieght = 2f;
-        bool canWalk = !Physics.CapsuleCast(transform.position,transform.position +Vector3.up* playerHieght, PlayerRadius,movDir, moveDistance);
-        if(!canWalk)
+        bool canWalk = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDir, moveDistance);
+        if (!canWalk)
         {
             //if player can not move towards movDir then try to move only on x movement
             Vector3 movDirX = new Vector3(movDir.x, 0, 0).normalized;
             canWalk = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirX, moveDistance);
-            if(canWalk)
+            if (canWalk)
             {
                 movDir = movDirX;
             }
             else
             {
-                
+
                 //Can not move only on x direction
                 //Atemt only in z
-                Vector3 movDirZ = new Vector3(0,0,movDir.z).normalized;
+                Vector3 movDirZ = new Vector3(0, 0, movDir.z).normalized;
                 canWalk = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirZ, moveDistance);
                 if (canWalk)
                 {
@@ -57,6 +89,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                   
                     //Can not move in any direction
                     Debug.Log("Player can not move in any direction");
                 }
@@ -66,30 +99,12 @@ public class PlayerController : MonoBehaviour
         }
         transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);//For player rotation
 
-         if(canWalk)
+        if (canWalk)
         {
             //  transform.Translate(Vector3.forward * moveDistance);
             transform.position += movDir * moveSpeed * Time.deltaTime;
         }
-         
-        
-    
-        
-        /*if(canWalk)
-        {
-            transform.forward += movDir * moveSpeed * Time.deltaTime;///For player movement
-        }*/
-        isWalking = movDir != Vector3.zero;    //For walking animation
-
        
-       
-      
-       
-    }
-
-    public bool IsWalking()
-    {
-        return isWalking;
     }
    
 }
