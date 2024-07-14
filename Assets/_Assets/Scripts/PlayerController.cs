@@ -8,12 +8,18 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
+        public ClearCounter selectedCounter;
+    }
     [SerializeField]  private GameInput gameInput; 
     private float moveSpeed = 5f;
     private bool isWalking;
     private float rotateSpeed = 7f;
     Vector3 lastInteraction;
     [SerializeField] private LayerMask counterLayerMask;
+    private ClearCounter selectedCounter;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +28,25 @@ public class PlayerController : MonoBehaviour
     }
     private void GameInput_OnInteractAction(object sender,System.EventArgs e)
     {
-        Debug.Log("Event ");
+        if(selectedCounter!=null)
+        {
+            selectedCounter.Interact();
+        }
+       
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        HandleMovement();
+        HandleInteractions();
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
+    private void HandleInteractions()
+    {
         Vector2 inputVector = gameInput.GetMovementVector();
         Vector3 movDir = new Vector3(-inputVector.x, 0, -inputVector.y);
         if (movDir != Vector3.zero)
@@ -34,29 +58,23 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(raycastHit.transform);
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
                 //Has counterLayerMask
-                clearCounter.Interact();
+                if (clearCounter != selectedCounter)
+                {
+                    selectedCounter = clearCounter;
+                }
+            }
+            else
+            {
+                selectedCounter = null;
+            }
         }
         else
         {
-            Debug.Log("Raycast : Nothing");
+            selectedCounter = null;
         }
-
     }
-    // Update is called once per frame
-    void Update()
-    {
-        HandleMovement();
-       // HandleInteractions();
-    }
-
-    public bool IsWalking()
-    {
-        return isWalking;
-    }
-    private void HandleInteractions()
-    {
-          }
     private void HandleMovement()
     {
         Vector2 inputVector = gameInput.GetMovementVector();
