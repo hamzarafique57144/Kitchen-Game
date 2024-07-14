@@ -16,35 +16,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask counterLayerMask;
     // Start is called before the first frame update
     void Start()
-    { 
-        
-        if (gameInput == null)
-        {
-            Debug.LogError("GameInput is not set on PlayerController");
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
     {
-        HandleMovement();
-        HandleInteractions();
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+     
     }
-
-    public bool IsWalking()
+    private void GameInput_OnInteractAction(object sender,System.EventArgs e)
     {
-        return isWalking;
-    }
-    private void HandleInteractions()
-    {
+        Debug.Log("Event ");
         Vector2 inputVector = gameInput.GetMovementVector();
         Vector3 movDir = new Vector3(-inputVector.x, 0, -inputVector.y);
-        if(movDir!=Vector3.zero)
+        if (movDir != Vector3.zero)
         {
             lastInteraction = movDir;
         }
         float interactonDistance = 2f;
-       if(Physics.Raycast(transform.position, lastInteraction, out RaycastHit raycastHit,interactonDistance, counterLayerMask))
+        if (Physics.Raycast(transform.position, lastInteraction, out RaycastHit raycastHit, interactonDistance, counterLayerMask))
         {
             Debug.Log(raycastHit.transform);
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
@@ -55,7 +41,22 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Raycast : Nothing");
         }
+
     }
+    // Update is called once per frame
+    void Update()
+    {
+        HandleMovement();
+       // HandleInteractions();
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
+    private void HandleInteractions()
+    {
+          }
     private void HandleMovement()
     {
         Vector2 inputVector = gameInput.GetMovementVector();
@@ -97,14 +98,14 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);//For player rotation
+        
 
         if (canWalk)
         {
             //  transform.Translate(Vector3.forward * moveDistance);
             transform.position += movDir * moveSpeed * Time.deltaTime;
         }
-       
+        transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);//For player rotation
     }
    
 }
