@@ -8,6 +8,24 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance {get;set;}
+   /* private static PlayerController instance;
+    public static PlayerController Instance
+    {
+        get { return instance; }
+        set { Instance = value; }
+    }*/
+    //The below commented code is same as above code, we just make a singleton
+  /*  public static PlayerController instanceField;
+    public static PlayerController GetInstanceField(PlayerController instanceField)
+    {
+        return instanceField;
+    }
+
+    public static void SetInstanceField(PlayerController instanceField)
+    {
+        PlayerController.instanceField = instanceField;
+    }*/
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
@@ -63,16 +81,18 @@ public class PlayerController : MonoBehaviour
                 if (clearCounter != selectedCounter)
                 {
                     selectedCounter = clearCounter;
+                    SetSelectedCounter(clearCounter); 
                 }
             }
             else
             {
-                selectedCounter = null;
+                
+                SetSelectedCounter(null);
             }
         }
         else
         {
-            selectedCounter = null;
+            SetSelectedCounter(null);
         }
     }
     private void HandleMovement()
@@ -125,5 +145,13 @@ public class PlayerController : MonoBehaviour
         }
         transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);//For player rotation
     }
-   
+    private void SetSelectedCounter(ClearCounter selectedCounter)
+    {
+        this.selectedCounter = selectedCounter;
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+        {
+            selectedCounter = selectedCounter
+
+        });
+    }
 }
