@@ -53,14 +53,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
-       
+        
+            
+        
     }
     private void GameInput_OnInteractAction(object sender,System.EventArgs e)
     {
         
         if (selectedCounter!=null)
         {
-            Debug.Log("We are into player class in If statement");
             selectedCounter.Interact();
         }
        
@@ -87,10 +88,10 @@ public class PlayerController : MonoBehaviour
         float interactonDistance = 2f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactonDistance,counterLayerMask))
         {
-            Debug.Log("Clear Counter is in Range");
-            Debug.Log("Name of gameobject to which player just interacted:"+raycastHit.transform.name);
+
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
+               
                 //Has counterLayerMask
                 if (clearCounter != selectedCounter)
                 {
@@ -165,7 +166,9 @@ public class PlayerController : MonoBehaviour
     }
     private void SetSelectedCounter(ClearCounter selectedCounter)
     {
+        Debug.Log("Selected Counter before assingning reference:" + this.selectedCounter);
         this.selectedCounter = selectedCounter;
+        Debug.Log("Selected Counter after assingning reference:" + this.selectedCounter);
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs 
         {
             selectedCounter = selectedCounter
