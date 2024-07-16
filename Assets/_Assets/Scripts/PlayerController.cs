@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Instance {get;set;}
+    public static PlayerController Instance {get;private set;}
    /* private static PlayerController instance;
     public static PlayerController Instance
     {
@@ -30,24 +30,37 @@ public class PlayerController : MonoBehaviour
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
         public ClearCounter selectedCounter;
+        
     }
     [SerializeField]  private GameInput gameInput; 
     private float moveSpeed = 5f;
     private bool isWalking;
     private float rotateSpeed = 7f;
-    Vector3 lastInteraction;
+    Vector3 lastInteractDir;
     [SerializeField] private LayerMask counterLayerMask;
     private ClearCounter selectedCounter;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject); // Ensure there is only one instance
+            return;
+        }
+        Instance = this;
+
+    }
     void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
-     
+       
     }
     private void GameInput_OnInteractAction(object sender,System.EventArgs e)
     {
-        if(selectedCounter!=null)
+        
+        if (selectedCounter!=null)
         {
+            Debug.Log("We are into player class in If statement");
             selectedCounter.Interact();
         }
        
@@ -69,30 +82,35 @@ public class PlayerController : MonoBehaviour
         Vector3 movDir = new Vector3(-inputVector.x, 0, -inputVector.y);
         if (movDir != Vector3.zero)
         {
-            lastInteraction = movDir;
+            lastInteractDir = movDir;
         }
         float interactonDistance = 2f;
-        if (Physics.Raycast(transform.position, lastInteraction, out RaycastHit raycastHit, interactonDistance, counterLayerMask))
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactonDistance,counterLayerMask))
         {
-            Debug.Log(raycastHit.transform);
+            Debug.Log("Clear Counter is in Range");
+            Debug.Log("Name of gameobject to which player just interacted:"+raycastHit.transform.name);
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
                 //Has counterLayerMask
                 if (clearCounter != selectedCounter)
                 {
                     selectedCounter = clearCounter;
-                    SetSelectedCounter(clearCounter); 
+                    SetSelectedCounter(clearCounter);
+                    Debug.Log("Clear counter is different from selected counter ");
                 }
             }
             else
             {
                 
                 SetSelectedCounter(null);
+                Debug.Log("Selected counter is null1");
             }
         }
         else
         {
             SetSelectedCounter(null);
+            Debug.Log("Clear Counter is not in Range");
+            
         }
     }
     private void HandleMovement()
@@ -148,7 +166,7 @@ public class PlayerController : MonoBehaviour
     private void SetSelectedCounter(ClearCounter selectedCounter)
     {
         this.selectedCounter = selectedCounter;
-        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs 
         {
             selectedCounter = selectedCounter
 
