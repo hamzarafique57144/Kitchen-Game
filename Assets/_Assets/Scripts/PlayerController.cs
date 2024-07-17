@@ -97,20 +97,20 @@ public class PlayerController : MonoBehaviour
                 {
                     selectedCounter = clearCounter;
                     SetSelectedCounter(clearCounter);
-                    Debug.Log("Clear counter is different from selected counter ");
+                  
                 }
             }
             else
             {
                 
                 SetSelectedCounter(null);
-                Debug.Log("Selected counter is null1");
+                
             }
         }
         else
         {
             SetSelectedCounter(null);
-            Debug.Log("Clear Counter is not in Range");
+          
             
         }
     }
@@ -166,9 +166,9 @@ public class PlayerController : MonoBehaviour
     }
     private void SetSelectedCounter(ClearCounter selectedCounter)
     {
-        Debug.Log("Selected Counter before assingning reference:" + this.selectedCounter);
+        
         this.selectedCounter = selectedCounter;
-        Debug.Log("Selected Counter after assingning reference:" + this.selectedCounter);
+      
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs 
         {
             selectedCounter = selectedCounter

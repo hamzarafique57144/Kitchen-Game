@@ -19,9 +19,7 @@ public class SelectedCounterVisual : MonoBehaviour
         }
         else
         {
-            Debug.Log(e.selectedCounter);
-            Debug.Log(clearCounter);
-            Debug.Log("Hide the selected counter");
+           
             Hide();
         }
     }
