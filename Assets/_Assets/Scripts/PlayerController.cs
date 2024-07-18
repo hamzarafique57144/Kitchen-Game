@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour,IKitchenObjectParent
 {
     public static PlayerController Instance {get;private set;}
    /* private static PlayerController instance;
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     Vector3 lastInteractDir;
     [SerializeField] private LayerMask counterLayerMask;
     private ClearCounter selectedCounter;
+    private KitchenObject kitchenObject;
+    [SerializeField] Transform kitchenObjectHolderPoint;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
         
         if (selectedCounter!=null)
         {
-            selectedCounter.Interact();
+            selectedCounter.Interact(this);
         }
        
     }
@@ -174,5 +176,26 @@ public class PlayerController : MonoBehaviour
             selectedCounter = selectedCounter
 
         });
+    }
+
+    public Transform GetKitchenObjectFollowTransform()
+    {
+        return kitchenObjectHolderPoint;
+    }
+    public void SetKitchenObject(KitchenObject kitchenObject)
+    {
+        this.kitchenObject = kitchenObject;
+    }
+    public KitchenObject GetKitchenObject()
+    {
+        return kitchenObject;
+    }
+    public void ClearKitchenObject()
+    {
+        kitchenObject = null;
+    }
+    public bool HasKitchenObject()
+    {
+        return kitchenObject != null;
     }
 }
