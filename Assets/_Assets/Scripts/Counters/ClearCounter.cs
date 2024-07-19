@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour,IKitchenObjectParent
+public class ClearCounter : BaseCounter,IKitchenObjectParent
 {
     [SerializeField] KitchenObjectsSO kitchenObjetcSO;
     [SerializeField] Transform counterTopPoint;
     private KitchenObject kitchenObject;
-    public void Interact(PlayerController player)
+    public override void Interact(PlayerController player)
     {
         if(kitchenObject == null)
         {

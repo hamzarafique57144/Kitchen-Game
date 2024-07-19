@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounter;
+        public BaseCounter selectedCounter;
         
     }
     [SerializeField]  private GameInput gameInput; 
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
     private float rotateSpeed = 7f;
     Vector3 lastInteractDir;
     [SerializeField] private LayerMask counterLayerMask;
-    private ClearCounter selectedCounter;
+    private BaseCounter selectedCounter;
     private KitchenObject kitchenObject;
     [SerializeField] Transform kitchenObjectHolderPoint;
     // Start is called before the first frame update
@@ -91,14 +91,14 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactonDistance,counterLayerMask))
         {
 
-            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
             {
                
                 //Has counterLayerMask
-                if (clearCounter != selectedCounter)
+                if (baseCounter != selectedCounter)
                 {
-                    selectedCounter = clearCounter;
-                    SetSelectedCounter(clearCounter);
+                    selectedCounter = baseCounter;
+                    SetSelectedCounter(baseCounter);
                   
                 }
             }
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
         }
         transform.forward = Vector3.Slerp(transform.forward, movDir, rotateSpeed * Time.deltaTime);//For player rotation
     }
-    private void SetSelectedCounter(ClearCounter selectedCounter)
+    private void SetSelectedCounter(BaseCounter selectedCounter)
     {
         
         this.selectedCounter = selectedCounter;
