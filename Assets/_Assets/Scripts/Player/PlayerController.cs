@@ -2,9 +2,8 @@ using Cinemachine.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class PlayerController : MonoBehaviour,IKitchenObjectParent
 {
@@ -55,6 +54,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
     void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternate;
         
             
         
@@ -67,6 +67,14 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
             selectedCounter.Interact(this);
         }
        
+    }
+
+    private void GameInput_OnInteractAlternate(object sender, System.EventArgs e)
+    {
+        if (selectedCounter!=null)
+        {
+            selectedCounter.InteractAlternate(this);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -130,7 +138,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
         {
             //if player can not move towards movDir then try to move only on x movement
             Vector3 movDirX = new Vector3(movDir.x, 0, 0).normalized;
-            canWalk = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirX, moveDistance);
+            canWalk = movDir.x !=0 &&!Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirX, moveDistance);
             if (canWalk)
             {
                 movDir = movDirX;
@@ -141,7 +149,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
                 //Can not move only on x direction
                 //Atemt only in z
                 Vector3 movDirZ = new Vector3(0, 0, movDir.z).normalized;
-                canWalk = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirZ, moveDistance);
+                canWalk = movDir.z != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirZ, moveDistance);
                 if (canWalk)
                 {
                     //Can move in z direction
