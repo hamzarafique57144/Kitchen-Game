@@ -29,7 +29,7 @@ public class SelectedCounterVisual : MonoBehaviour
     }
    private void Hide()
     {
-      counterViusal.SetActive(false);
+       counterViusal.SetActive(false);
 
     }
 }
