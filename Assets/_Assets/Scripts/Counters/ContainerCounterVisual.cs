@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class ContainerCounterVisual : MonoBehaviour
 {
     private const string Open_Colse = "OpenClose";
@@ -12,16 +13,14 @@ public class ContainerCounterVisual : MonoBehaviour
     private void Awake()
     {
         animator= GetComponent<Animator>();
+     
     }
     private void Start()
     {
-        containerCounter.OnPlayerGrabedObject += ContanerCounter_OnPlayerGrabedObject();
+        containerCounter.OnPlayerGrabedObject += ContanerCounter_OnPlayerGrabedObject;
     }
 
-    private EventHandler ContanerCounter_OnPlayerGrabedObject()
-    {
-        throw new NotImplementedException();
-    }
+    
 
     private void  ContanerCounter_OnPlayerGrabedObject(object sender,EventArgs e)
     {

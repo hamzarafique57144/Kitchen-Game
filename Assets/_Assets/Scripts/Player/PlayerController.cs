@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
         {
             lastInteractDir = movDir;
         }
-        float interactonDistance = 2f;
+        float interactonDistance = 3f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactonDistance,counterLayerMask))
         {
 
