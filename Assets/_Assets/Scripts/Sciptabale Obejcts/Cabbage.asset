@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cabbage
   m_EditorClassIdentifier: 
   prefab: {fileID: 8995593099708400506, guid: 241949183f87ccb498cca2b3b87a3e59, type: 3}
-  sprite: {fileID: 21300000, guid: 91e8fe3de9249fc44b7bdd8050062896, type: 3}
+  sprite: {fileID: 21300000, guid: bee24f07c57157e45a946eed3bfe8b84, type: 3}
   objectName: Cabbage
