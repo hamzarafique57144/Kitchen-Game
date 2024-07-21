@@ -180,6 +180,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4974471234460923634, guid: abe2299c430dc43499e91c5490bc782f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.32
+      objectReference: {fileID: 0}
     - target: {fileID: 6831958852760051410, guid: abe2299c430dc43499e91c5490bc782f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -261,6 +265,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 1512272178278520948}
+  cuttingRecipeSOArray:
+  - {fileID: 11400000, guid: 61e5c7d952b4cdb4b8c3186a1e95097c, type: 2}
+  - {fileID: 11400000, guid: 5f07e610da84e974b9d8ceb8d8337cc0, type: 2}
+  - {fileID: 11400000, guid: 06620a49cc163544d960ef1623096dbb, type: 2}
 --- !u!4 &1097623572573548628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6831958852760051410, guid: abe2299c430dc43499e91c5490bc782f, type: 3}
