@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 5991835245528878651}
   - component: {fileID: 8700087036681639252}
   - component: {fileID: 8718031242442000277}
+  - component: {fileID: 7333718606565384995}
   m_Layer: 5
   m_Name: ProgressBar
   m_TagString: Untagged
@@ -331,6 +332,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cuttingCounter: {fileID: 1016310854683250368}
   barImage: {fileID: 1344180231743126668}
+--- !u!114 &7333718606565384995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855337324781971867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b4ddf8f20eb334d913e81e6d6c013a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2365047590076616545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +401,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
+--- !u!1 &2261833164345600971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4589716710238282922, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
+  m_PrefabInstance: {fileID: 2365047590076616545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2932683938630224553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2261833164345600971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c34428c5567a945a955b1cd449a996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cuttingCounter: {fileID: 1016310854683250368}
 --- !u!1001 &3325087733698612180
 PrefabInstance:
   m_ObjectHideFlags: 0
