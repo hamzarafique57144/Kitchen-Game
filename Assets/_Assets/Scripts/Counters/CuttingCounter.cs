@@ -83,15 +83,8 @@ public class CuttingCounter : BaseCounter
     
     private bool HasRecipeWithInput(KitchenObjectsSO inputKitchenObjectSO)
     {
-        foreach (CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray)
-        {
-            if (cuttingRecipeSO.input == inputKitchenObjectSO)
-            {
-                return cuttingRecipeSO.output;
-            }
-        }
-        return false;
-
+        CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(inputKitchenObjectSO);
+        return cuttingRecipeSO != null;
     }
     private KitchenObjectsSO GetOutputForInput(KitchenObjectsSO inputKitchenObjectSO)
     {

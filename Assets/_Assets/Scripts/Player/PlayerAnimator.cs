@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] PlayerController player;
-    private const string IS_WALKING = "isWalking";
+    private const string IS_WALKING = "IsWalking";
     private Animator animator;
     void Awake()
     {
         animator = GetComponent<Animator>();
-     
+        
     }
 
     // Update is called once per frame

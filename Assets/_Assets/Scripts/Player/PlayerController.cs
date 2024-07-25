@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
         {
             lastInteractDir = movDir;
         }
-        float interactonDistance = 3f;
+        float interactonDistance = 1.2f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactonDistance,counterLayerMask))
         {
 
@@ -131,8 +131,8 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
         isWalking = movDir != Vector3.zero;
         //     Debug.Log("Mov Dir " + movDir);
         float moveDistance = moveSpeed * Time.deltaTime;
-        float PlayerRadius = 0.7f;
-        float playerHieght = 2f;
+        float PlayerRadius = 1f;
+        float playerHieght = 2.7f;
         bool canWalk = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDir, moveDistance);
         if (!canWalk)
         {
