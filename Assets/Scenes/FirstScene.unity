@@ -1973,6 +1973,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6882152161712816886, guid: 573fb08f859b2d346abd0870fdfc4325, type: 3}
+      propertyPath: stoveCounter
+      value: 
+      objectReference: {fileID: 1958170217}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 573fb08f859b2d346abd0870fdfc4325, type: 3}
 --- !u!1001 &1866433811
@@ -2142,6 +2146,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 844a331df8a614d48aa185482372e018, type: 3}
+--- !u!114 &1958170217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4926455091155788095, guid: 573fb08f859b2d346abd0870fdfc4325, type: 3}
+  m_PrefabInstance: {fileID: 1857205529}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9642e6adb1baed34ea69c231e0c0193d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1984859933 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3482111774462228009, guid: d40afed537d56a8429ca81bec4cc4004, type: 3}
