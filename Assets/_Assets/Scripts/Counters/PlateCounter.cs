@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlateCounter : BaseCounter
 {
     public event EventHandler OnPlateSpawned;
-    [SerializeField] KitchenObjectsSO platerKitchenObjectSO;
+    public event EventHandler OnPlateRemoved;
+    [SerializeField] KitchenObjectsSO plateKitchenObjectSO;
     private float spawnTimer;
     private float spawnPlateTimerMax=4;
     private int plateSpawnedAmount;
@@ -25,5 +26,20 @@ public class PlateCounter : BaseCounter
             }
         }
     }
+    public override void Interact(PlayerController player)
+    {
+        if (!player.HasKitchenObject())
+        {
+            //Player is empty handed
+            if(plateSpawnedAmount > 0)
+            {
+                //There atleast one plate on the counter
+                plateSpawnedAmount--;
+                KitchenObject.SpawnKitchenObject(plateKitchenObjectSO, player);
+                OnPlateRemoved?.Invoke(this, EventArgs.Empty);
 
+
+            }
+        }
+    }
 }
