@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,8 +7,16 @@ using UnityEngine;
 
 public class PlateKitchenObject : KitchenObject
 {
+    public event EventHandler<OnIngredientAddedEventArgs> OnIngredientAdded;
+    public class OnIngredientAddedEventArgs : EventArgs
+    {
+        public KitchenObjectsSO kitchenObjectSO;
+    }
+        
+
     [SerializeField] List<KitchenObjectsSO> validKitchenObjectSOList ;
     private List<KitchenObjectsSO> kitchenObjectSOList;
+
 
     private void Awake()
     {
@@ -27,8 +37,16 @@ public class PlateKitchenObject : KitchenObject
         else
         {
            kitchenObjectSOList.Add(kitchenObjectSO);
+            OnIngredientAdded?.Invoke(this, new OnIngredientAddedEventArgs
+            {
+                kitchenObjectSO = kitchenObjectSO
+            });
             return true;
         }
         
+    }
+    public List<KitchenObjectsSO> GetKitchenObjectSOList()
+    {
+        return kitchenObjectSOList;
     }
 }
