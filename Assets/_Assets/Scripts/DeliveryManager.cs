@@ -1,19 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DeliveryManager : MonoBehaviour
 {
+    public event EventHandler OnRecipeSpawned;
+    public event EventHandler OnRecipeComplete;
     public static DeliveryManager Instance { get; private set; }
     [SerializeField] private RecipeSOList recipeListSO;
-    private List<RecipeSO> waitingRecipeSOList
-        ;
+    private List<RecipeSO> waitingRecipeSOList;
+        
     private float spawnRecipeTimer;
     private float spawnRecipeTimerMax = 4f;
     private int waitingRacipesMax=4;
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject); // Ensure there is only one instance
+            return;
+        }
         Instance = this;
+
+
+
         waitingRecipeSOList = new List<RecipeSO>();
     }
     private void Update()
@@ -25,9 +36,11 @@ public class DeliveryManager : MonoBehaviour
             if(waitingRecipeSOList.Count < waitingRacipesMax)
             {
                 spawnRecipeTimer = spawnRecipeTimerMax;
-                RecipeSO waitingRecipeSO = recipeListSO.RecipeSOlist[Random.Range(0, recipeListSO.RecipeSOlist.Count)];
+                RecipeSO waitingRecipeSO = recipeListSO.RecipeSOlist[UnityEngine.Random.Range(0, recipeListSO.RecipeSOlist.Count)];
                 Debug.Log(waitingRecipeSO.Name);
                 waitingRecipeSOList.Add(waitingRecipeSO);
+
+                OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
             }
            
         }
@@ -66,6 +79,7 @@ public class DeliveryManager : MonoBehaviour
                     //Player deliver the correct recipe
                     Debug.Log("Player deliver the correct recipe");
                     waitingRecipeSOList.RemoveAt(i);
+                    OnRecipeComplete?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }
@@ -73,5 +87,14 @@ public class DeliveryManager : MonoBehaviour
         //No matches found
         //Player did not deliver a correct recipe
         Debug.Log("Player did not deliver the correct recipe");
+    }
+
+    public List<RecipeSO> GetWaitingRecipeSOList()
+    {
+        return waitingRecipeSOList;
+    }
+    public void InstanceChecking(int number)
+    {
+        Debug.Log("Square of number is " + number * number);
     }
 }

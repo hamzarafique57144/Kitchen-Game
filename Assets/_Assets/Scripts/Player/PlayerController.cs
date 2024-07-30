@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
             return;
         }
         Instance = this;
+     
 
     }
     void Start()
