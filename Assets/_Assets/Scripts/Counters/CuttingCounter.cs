@@ -8,7 +8,8 @@ public class CuttingCounter : BaseCounter,IHasProgress
     
     public event EventHandler<IHasProgress.OnProgressChangedEventsArgs> OnProgressChanged;
     public event EventHandler OnCut;
-    
+    //For playing Sound
+    public static event EventHandler OnAnyCut;
 
     [SerializeField] CuttingRecipeSO[] cuttingRecipeSOArray;
     private int cuttingProgress;
@@ -70,6 +71,7 @@ public class CuttingCounter : BaseCounter,IHasProgress
             //There is a kitchen object here it can be cut
             cuttingProgress++;
             OnCut?.Invoke(this, EventArgs.Empty);
+            OnAnyCut?.Invoke(this, EventArgs.Empty);
             Debug.Log("Cutting Progress :" + cuttingProgress);
             CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
             OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventsArgs

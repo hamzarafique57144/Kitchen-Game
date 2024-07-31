@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour,IKitchenObjectParent
 {
+    public event EventHandler OnPlayerPickedSomething;
     public static PlayerController Instance {get;private set;}
    /* private static PlayerController instance;
     public static PlayerController Instance
@@ -194,6 +195,10 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+        if(kitchenObject!= null)
+        {
+            OnPlayerPickedSomething?.Invoke(this, EventArgs.Empty);
+        }
     }
     public KitchenObject GetKitchenObject()
     {
