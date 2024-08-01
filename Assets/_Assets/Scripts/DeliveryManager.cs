@@ -16,6 +16,7 @@ public class DeliveryManager : MonoBehaviour
     private float spawnRecipeTimer;
     private float spawnRecipeTimerMax = 4f;
     private int waitingRacipesMax=4;
+    private int successfullRecipesAmount;
     private void Awake()
     {
         if (Instance != null)
@@ -80,6 +81,7 @@ public class DeliveryManager : MonoBehaviour
                 {
                     //Player deliver the correct recipe
                     Debug.Log("Player deliver the correct recipe");
+                    successfullRecipesAmount++;
                     waitingRecipeSOList.RemoveAt(i);
                     OnRecipeComplete?.Invoke(this, EventArgs.Empty);
                     OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
@@ -100,5 +102,9 @@ public class DeliveryManager : MonoBehaviour
     public void InstanceChecking(int number)
     {
         Debug.Log("Square of number is " + number * number);
+    }
+    public int GetSuccessfullRecipesAmount()
+    {
+        return successfullRecipesAmount;
     }
 }
