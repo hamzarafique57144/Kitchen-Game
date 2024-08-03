@@ -2,11 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public event EventHandler OnStateChanged;
     public static GameManager Instance;
+   [SerializeField] private bool isGamePaused = false;
+    [SerializeField] GameObject GamePuseUIPanel;
+    [SerializeField] Button resumeButton;
+    [SerializeField] Button mainMenuButton;
+    [SerializeField] Button restartButton;
     private enum State
     {
         waitingToStart,
@@ -24,9 +30,32 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        resumeButton.onClick.AddListener(() =>
+        {
+            TogglePauseGame();
+        });
+        mainMenuButton.onClick.AddListener(() =>
+        {
+            
+            Loader.Load(Loader.Scene.MainMenuScene);
+        });
+
+        restartButton.onClick.AddListener(() =>
+        {
+            Time.timeScale = 1f;
+            Loader.Load(Loader.Scene.GameScene);
+        });
         state = State.waitingToStart;
     }
+    private void Start()
+    {
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+    }
 
+    private void GameInput_OnPauseAction(object sender, EventArgs e)
+    {
+        TogglePauseGame();
+    }
     private void Update()
     {
         switch (state)
@@ -81,5 +110,20 @@ public class GameManager : MonoBehaviour
    public float GetGamePlayingTimerNormalized()
     {
         return 1-gamePlayingTimer / gamePlayingTimerMax;
+    }
+    private void TogglePauseGame()
+    {
+        isGamePaused = !isGamePaused;
+        if(isGamePaused)
+        {
+            Time.timeScale = 0f;
+            GamePuseUIPanel.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            GamePuseUIPanel.SetActive(false);
+        }
+        
     }
 }

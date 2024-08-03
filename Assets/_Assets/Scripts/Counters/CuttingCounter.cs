@@ -10,7 +10,11 @@ public class CuttingCounter : BaseCounter,IHasProgress
     public event EventHandler OnCut;
     //For playing Sound
     public static event EventHandler OnAnyCut;
-
+    //This is static event, so we need to reset data when new scene loaded
+    new public static void ResetStaticData()
+    {
+        OnAnyCut = null;
+    }
     [SerializeField] CuttingRecipeSO[] cuttingRecipeSOArray;
     private int cuttingProgress;
     public override void Interact(PlayerController player)

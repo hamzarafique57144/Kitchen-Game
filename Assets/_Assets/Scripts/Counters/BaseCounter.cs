@@ -8,6 +8,10 @@ public class BaseCounter : MonoBehaviour,IKitchenObjectParent
     [SerializeField] Transform counterTopPoint;
     private KitchenObject kitchenObject;
     public static event EventHandler OnAnyObjectPlacedHere;
+    public static void ResetStaticData()
+    {
+        OnAnyObjectPlacedHere= null;
+    }
     public virtual void Interact(PlayerController player)
     {
         Debug.LogError("BaseCounter.Interact();");

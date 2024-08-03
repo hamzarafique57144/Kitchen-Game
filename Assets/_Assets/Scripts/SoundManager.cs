@@ -1,14 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SoundManager : MonoBehaviour
 {
+    private const string Player_Prefs_Sound_Effects_Volume = "SoundEffectsVolume";
     public static SoundManager Instance {get; private set; }
     [SerializeField] AdioCilpRefsSO audioClipRefsSO;
+    float volume = 1f;
     private void Awake()
     {
         Instance = this;
+        if (!PlayerPrefs.HasKey(Player_Prefs_Sound_Effects_Volume))
+        {
+            PlayerPrefs.SetFloat(Player_Prefs_Sound_Effects_Volume, volume);
+            PlayerPrefs.Save();
+        }
+        volume = PlayerPrefs.GetFloat(Player_Prefs_Sound_Effects_Volume);
     }
     private void Start()
     {
@@ -59,14 +68,29 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(audiClipArray[UnityEngine.Random.Range(0, audiClipArray.Length)], position, volume);
     }
-    private void PlaySound(AudioClip audiClip,Vector3 position,float volume =1)
+    private void PlaySound(AudioClip audiClip,Vector3 position,float volumeMultiplier =1)
     {
-        AudioSource.PlayClipAtPoint(audiClip,position,volume);
+        AudioSource.PlayClipAtPoint(audiClip,position,volumeMultiplier*volume);
     }
 
     //for player sound, we can play here, we just play it in other class for learning purpose
     public void PlayFootStepsSound(Vector3 positition, float volume)
     {
         PlaySound(audioClipRefsSO.foorStep,positition,volume);
+    }
+    public void ChangeVolume()
+    {
+        volume += .1f;
+        if(volume> 1f)
+        {
+            volume = 0f;
+        }
+        PlayerPrefs.SetFloat(Player_Prefs_Sound_Effects_Volume, volume);
+        PlayerPrefs.Save();
+    }
+    public float GetVolume()
+    {
+        volume = PlayerPrefs.GetFloat(Player_Prefs_Sound_Effects_Volume);
+        return volume;
     }
 }
