@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEditor.Search;
 using UnityEngine;
 
 public class GameStartCountDwonUI : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI countDwonText;
-    
+    private const string Number_POP_UP = "NumberPopUp";
 
+    [SerializeField] TextMeshProUGUI countDwonText;
+    [SerializeField] GameObject countdownPanel;
+    private Animator animator;
+    private int previousCountDownNumber;
+    private void Awake()
+    {
+      animator = countdownPanel.GetComponent<Animator>();
+    }
     private void Start()
     {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
@@ -16,7 +24,14 @@ public class GameStartCountDwonUI : MonoBehaviour
     }
     private void Update()
     {
-        countDwonText.text = GameManager.Instance.GetCountDownToStartTimer().ToString("#");
+        int countDownNumber = Mathf.CeilToInt(GameManager.Instance.GetCountDownToStartTimer());
+        countDwonText.text = countDownNumber.ToString();
+        if(previousCountDownNumber != countDownNumber)
+        {
+            previousCountDownNumber = countDownNumber;
+            animator.SetTrigger(Number_POP_UP);
+            SoundManager.Instance.playCountDownSound();
+        }
     }
     private void GameManager_OnStateChanged(object sender, System.EventArgs e)
     {
@@ -31,8 +46,8 @@ public class GameStartCountDwonUI : MonoBehaviour
     }
     private void Show()
     {
-        gameObject.SetActive(true);
+        countdownPanel.SetActive(true);
     }
     private void Hide()
-    { gameObject.SetActive(false); }
+    { countdownPanel.SetActive(false); }
 }

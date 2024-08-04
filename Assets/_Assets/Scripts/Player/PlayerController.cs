@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
         {
             //if player can not move towards movDir then try to move only on x movement
             Vector3 movDirX = new Vector3(movDir.x, 0, 0).normalized;
-            canWalk = movDir.x !=0 &&!Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirX, moveDistance);
+            canWalk = (movDirX.x <-.5  || movDirX.x> +.5f) &&!Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirX, moveDistance);
             if (canWalk)
             {
                 movDir = movDirX;
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour,IKitchenObjectParent
                 //Can not move only on x direction
                 //Atemt only in z
                 Vector3 movDirZ = new Vector3(0, 0, movDir.z).normalized;
-                canWalk = movDir.z != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirZ, moveDistance);
+                canWalk = (movDir.z < -.5 || movDir.z > .5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHieght, PlayerRadius, movDirZ, moveDistance);
                 if (canWalk)
                 {
                     //Can move in z direction

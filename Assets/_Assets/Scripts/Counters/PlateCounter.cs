@@ -19,7 +19,7 @@ public class PlateCounter : BaseCounter
         {
             spawnTimer = 0;
 
-            if(plateSpawnedAmount< plateSpwanedAmountMax )
+            if(GameManager.Instance.IsGamePlaying() && plateSpawnedAmount< plateSpwanedAmountMax )
             {
                 plateSpawnedAmount++;
                 OnPlateSpawned?.Invoke(this, EventArgs.Empty);
