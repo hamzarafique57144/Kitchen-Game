@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3127782236481032884}
   - component: {fileID: 4208795751295946067}
   - component: {fileID: 4314475919271642438}
+  - component: {fileID: 6168015907471327906}
+  - component: {fileID: 2857501607015937373}
   m_Layer: 6
   m_Name: BurningWarning
   m_TagString: Untagged
@@ -129,6 +131,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoveCounter: {fileID: 4926455091155788095}
+--- !u!95 &6168015907471327906
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206249307279164669}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2ba5be6abd4af3043b881fdaa18568fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!225 &2857501607015937373
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206249307279164669}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5619067445191098865
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +719,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1181761126158098593, guid: d2b84eb5a9035c140b76a5700e561c51, type: 3}
+      propertyPath: m_Color.b
+      value: 0.12431464
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181761126158098593, guid: d2b84eb5a9035c140b76a5700e561c51, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9150943
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181761126158098593, guid: d2b84eb5a9035c140b76a5700e561c51, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9005208
+      objectReference: {fileID: 0}
     - target: {fileID: 8657453222534935990, guid: d2b84eb5a9035c140b76a5700e561c51, type: 3}
       propertyPath: m_Name
       value: ProgressBar
@@ -695,6 +741,44 @@ PrefabInstance:
       objectReference: {fileID: 2107046140203273417}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2b84eb5a9035c140b76a5700e561c51, type: 3}
+--- !u!1 &854670055001865692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8657453222534935990, guid: d2b84eb5a9035c140b76a5700e561c51, type: 3}
+  m_PrefabInstance: {fileID: 8356735001262147690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8634791771537678502
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854670055001865692}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f355918518e59e346acbcb3e2f9e36db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &3301705029468435986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854670055001865692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69d5b28933bde145a3d83ffd285a66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoveCounter: {fileID: 4926455091155788095}
 --- !u!1001 &8856803911758985868
 PrefabInstance:
   m_ObjectHideFlags: 0

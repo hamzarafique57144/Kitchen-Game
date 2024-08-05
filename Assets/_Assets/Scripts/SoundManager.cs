@@ -93,6 +93,11 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetFloat(Player_Prefs_Sound_Effects_Volume, volume);
         PlayerPrefs.Save();
     }
+
+    public void PlayWarningSound(Vector3 positon)
+    {
+        PlaySound(audioClipRefsSO.warning, positon);
+    }
     public float GetVolume()
     {
         volume = PlayerPrefs.GetFloat(Player_Prefs_Sound_Effects_Volume);
